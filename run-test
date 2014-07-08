@@ -1,0 +1,13 @@
+#!/bin/sh
+
+echo "Run-test"
+
+java -classpath "lib/reflections-0.9.9-RC2.jar;target/classes;target/test-classes;lib/guava-15.0.jar;lib/javassist-3.18.2-GA.jar" com.baldurtech.unit.MiniatureSpiceTestCase com.baldurtech
+
+echo "Run-tesh done."
+
+
+D:\turnt-octo-ironman>java -classpath "lib/reflections-0.9.9-RC2.jar;target/clas
+ses;target/test-classes;lib/guava-15.0.jar;lib/servlet-api.jar;lib/javassist-3.1
+8.2-GA.jar;lib/miniature-spice-unit-test.jar;" com.baldurtech.unit.MiniatureSpic
+eTestCase com.baldurtech

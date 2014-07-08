@@ -1,0 +1,14 @@
+#!/bin/sh
+
+test -z "$CATALINA_HOME" && "CATALINA_HOME not set." && exit 1
+
+rm -r -f $CATALINA_HOME/webapps/homeservlet/
+mkdir -p $CATALINA_HOME/webapps/homeservlet/
+
+cp -f -r src/main/webapp/* $CATALINA_HOME/webapps/homeservlet
+cp -r -f target/classes $CATALINA_HOME/webapps/homeservlet/WEB-INF/
+
+cp -r lib $CATALINA_HOME/webapps/homeservlet/WEB-INF/
+
+
+echo "Deploy done."
