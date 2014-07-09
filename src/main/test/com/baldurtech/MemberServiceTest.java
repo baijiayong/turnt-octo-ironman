@@ -20,6 +20,12 @@ public class MemberServiceTest extends MiniatureSpiceTestCase
         
         assertFalse(memberDao.saveHasInvoked);
     }
+    public void test_valid_member_should_be_saved()
+    {
+        memberService.save(createMemberWithUsername("xiaobai"));
+        
+        assertTrue(memberDao.saveHasInvoked);
+    }
     public Member createMemberWithUsername(String username)
     {
         Member member = new Member();
