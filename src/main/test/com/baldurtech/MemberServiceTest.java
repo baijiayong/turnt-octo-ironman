@@ -4,29 +4,27 @@ import com.baldurtech.unit.MiniatureSpiceTestCase;
 
 public class MemberServiceTest extends MiniatureSpiceTestCase
 {  
+
+    MockMemberDao memberDao = new MockMemberDao();
+    MemberService memberService = new MemberService(memberDao);
+    
     public void test_username_is_empty_should_not_save()
     {
-        MockMemberDao memberDao = new MockMemberDao();
-    
-        Member member = new Member();
-        member.setUsername("");
-   
-        MemberService memberService = new MemberService(memberDao);
-        memberService.save(member);
+        memberService.save(createMemberWithUsername(""));
         
         assertFalse(memberDao.saveHasInvoked);
     }    
     public void test_username_is_blank_should_not_save()
     {
-        MockMemberDao memberDao = new MockMemberDao();
-        
-        Member member = new Member();
-        member.setUsername("     ");
-        
-        MemberService memberService = new MemberService(memberDao);
-        memberService.save(member);
+        memberService.save(createMemberWithUsername("        "));
         
         assertFalse(memberDao.saveHasInvoked);
+    }
+    public Member createMemberWithUsername(String username)
+    {
+        Member member = new Member();
+        member.setUsername(username);
+        return member;
     }
 }
 class MockMemberDao implements MemberDao
