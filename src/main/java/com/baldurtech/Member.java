@@ -4,6 +4,10 @@ public class Member
 {
     String username;
     Long id;
+    public String toString()
+    {
+        return "Member@" + id + "(" + username + ")";
+    } 
     public void setUsername(String username)
     {
         this.username = username;

@@ -23,7 +23,7 @@
     </servlet>
     <servlet-mapping>
         <servlet-name>ServletTest</servlet-name>
-        <url-pattern>/home</url-pattern>
+        <url-pattern>/member</url-pattern>
     </servlet-mapping>
     
 </web-app>

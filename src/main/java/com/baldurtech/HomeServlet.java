@@ -10,6 +10,18 @@ public class HomeServlet extends HttpServlet
 {
     public void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException,IOException
     {
-        response.getWriter().println("learn servlet test !");
+        
+    }
+    public void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException,IOException
+    {        
+        Member member = new Member();
+        member.setUsername(request.getParameter("username"));
+        
+        MemberDao memberDao = new MemberDaoImpl();
+        
+        MemberService memberService = new MemberService(memberDao);
+        memberService.save(member);
+        
+        response.getWriter().println("Member:" + member);
     }
 }
