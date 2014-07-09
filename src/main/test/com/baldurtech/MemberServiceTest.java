@@ -16,6 +16,18 @@ public class MemberServiceTest extends MiniatureSpiceTestCase
         
         assertFalse(memberDao.saveHasInvoked);
     }    
+    public void test_username_is_blank_should_not_save()
+    {
+        MockMemberDao memberDao = new MockMemberDao();
+        
+        Member member = new Member();
+        member.setUsername("     ");
+        
+        MemberService memberService = new MemberService(memberDao);
+        memberService.save(member);
+        
+        assertFalse(memberDao.saveHasInvoked);
+    }
 }
 class MockMemberDao implements MemberDao
 {
