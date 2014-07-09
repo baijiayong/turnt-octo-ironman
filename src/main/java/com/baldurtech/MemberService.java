@@ -11,7 +11,9 @@ public class MemberService
     {
         if(member.getUsername() != null && member.getUsername().trim().length() > 0)
         {
-            return memberDao.save(member);
+            Member memberWillBeSaved = new Member();
+            memberWillBeSaved.setUsername(member.getUsername().trim());
+            return memberDao.save(memberWillBeSaved);
         }
         return member;
     }

@@ -26,6 +26,12 @@ public class MemberServiceTest extends MiniatureSpiceTestCase
         
         assertTrue(memberDao.saveHasInvoked);
     }
+    public void test_username_should_be_trimed()
+    {
+        memberService.save(createMemberWithUsername("  tom  "));
+        
+        assertEquals("tom",memberDao.savedMember.getUsername());
+    }
     public Member createMemberWithUsername(String username)
     {
         Member member = new Member();
@@ -36,8 +42,11 @@ public class MemberServiceTest extends MiniatureSpiceTestCase
 class MockMemberDao implements MemberDao
 {
     public Boolean saveHasInvoked = false;
+    public Member savedMember = new Member();
+    
     public Member save(Member member)
     {
+        savedMember = member;
         saveHasInvoked = true;
         return member;
     }
