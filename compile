@@ -6,6 +6,6 @@ echo "Compile"
 
 mkdir -p target/classes target/test-classes
 
-javac -d target/classes -classpath "lib/servlet-api.jar;target/classes;target/test-classes/;lib/reflections-0.9.9-RC2.jar;lib/miniature-spice-unit-test.jar" src/main/java/com/baldurtech/*.java
-javac -d target/test-classes -classpath "lib/servlet-api.jar;target/classes;target/test-classes/;lib/reflections-0.9.9-RC2.jar;lib/miniature-spice-unit-test.jar" src/main/test/com/baldurtech/*.java
+javac -encoding "UTF-8" -d target/classes -classpath "lib/servlet-api.jar;target/classes;target/test-classes/;lib/reflections-0.9.9-RC2.jar;lib/miniature-spice-unit-test.jar" src/main/java/com/baldurtech/*.java
+javac -encoding "UTF-8" -d target/test-classes -classpath "lib/servlet-api.jar;target/classes;target/test-classes/;lib/reflections-0.9.9-RC2.jar;lib/miniature-spice-unit-test.jar" src/main/test/com/baldurtech/*.java
 echo "Compile done."

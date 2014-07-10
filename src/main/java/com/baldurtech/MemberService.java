@@ -24,4 +24,10 @@ public class MemberService
             memberDao.delete(null);
         }
     }
+    public Member update(Member member)
+    {
+        Member originMember = memberDao.getById(1990L);
+        originMember.setUsername(member.getUsername());
+        return originMember;
+    }
 } 

@@ -12,4 +12,8 @@ public class MemberDaoImpl implements MemberDao
     {
         System.out.println("MemberDao.delete: " + member);
     }
+    public Member getById(Long id)
+    {
+        return null;
+    }
 }
