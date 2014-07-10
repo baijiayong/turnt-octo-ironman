@@ -17,4 +17,11 @@ public class MemberService
         }
         return member;
     }
+    public void delete(Member member)
+    {
+        if(member.getId() > 1L )
+        {
+            memberDao.delete(null);
+        }
+    }
 } 

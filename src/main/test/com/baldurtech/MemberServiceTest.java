@@ -32,22 +32,40 @@ public class MemberServiceTest extends MiniatureSpiceTestCase
         
         assertEquals("tom",memberDao.savedMember.getUsername());
     }
+    public void test_id_equals_1_should_not_be_deleted()
+    {
+        memberService.delete(createMemberWithId(1L));
+     
+        assertFalse(memberDao.deleteHasInvoked);
+    }
     public Member createMemberWithUsername(String username)
     {
         Member member = new Member();
         member.setUsername(username);
         return member;
     }
+    public Member createMemberWithId(Long id)
+    {
+        Member member = new Member();
+        member.setId(id);
+        return member;
+    }
 }
 class MockMemberDao implements MemberDao
 {
     public Boolean saveHasInvoked = false;
-    public Member savedMember = new Member();
+    public Member savedMember;
+    public Boolean deleteHasInvoked = false;
     
     public Member save(Member member)
     {
         savedMember = member;
         saveHasInvoked = true;
-        return member;
+        return null;
+    }
+    public void delete(Member member)
+    {
+        deleteHasInvoked = true;
+        
     }
 }
