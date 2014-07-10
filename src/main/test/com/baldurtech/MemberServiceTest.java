@@ -34,18 +34,32 @@ public class MemberServiceTest extends MiniatureSpiceTestCase
     }
     public void test_id_equals_1_should_not_be_deleted()
     {
+        memberDao.getByIdParamExpected = 1L;
+        memberDao.getByIdReturn = createMemberWithId(1L);
+        
         memberService.delete(createMemberWithId(1L));
      
         assertFalse(memberDao.deleteHasInvoked);
     }
+    public void test_删除一个有效的且id不为1的member()
+    {
+        memberDao.getByIdParamExpected = 2L;
+        memberDao.getByIdReturn = createMember(2L,"benben");
+        
+        memberService.delete(createMemberWithId(2L));
+        
+        assertEquals(2,memberDao.getByIdParam.intValue());
+        assertNull(memberDao.deleteMember);
+    }
     public void test_给一个已存在的member修改为另一个有效的username()
     {
+        memberDao.getByIdParamExpected = 5L;
+        memberDao.getByIdReturn = createMember(5L, "Tom");
         
-        Member member = memberService.update(createMember(1990L,"Jack"));
+        memberService.update(createMember(5L,"Jack"));
         
-        assertEquals("Jack",member.getUsername());
-        assertTrue(memberDao.getByIdHasInvoked);
-        
+        assertEquals(5, memberDao.getByIdParam.intValue());
+        assertEquals("Jack", memberDao.updateParam.getUsername());
     }
     public Member createMemberWithUsername(String username)
     {
@@ -74,8 +88,13 @@ class MockMemberDao implements MemberDao
     public Member savedMember;
     public Boolean deleteHasInvoked = false;
     public Member originMember;
-    public Boolean getByIdHasInvoked = false;
     
+    public Long getByIdParam;
+    public Long getByIdParamExpected;
+    public Member getByIdReturn;
+    
+    public Member updateParam;
+    public Member deleteMember;
     public Member save(Member member)
     {
         savedMember = member;
@@ -85,14 +104,19 @@ class MockMemberDao implements MemberDao
     public void delete(Member member)
     {
         deleteHasInvoked = true;
-        
+        deleteMember = null;      
     }
     public Member getById(Long id)
     {
-        getByIdHasInvoked = true;
-        Member member = new Member();
-        member.setId(id);
-        member.setUsername("Tom");
-        return member;
+        getByIdParam = id;
+        if(id.equals(getByIdParamExpected))
+            return getByIdReturn;
+        return null;
+    }
+    
+    public Member update(Member member)
+    {
+        updateParam = member;
+        return updateParam;
     }
 }

@@ -16,4 +16,10 @@ public class MemberDaoImpl implements MemberDao
     {
         return null;
     }
+    
+    public Member update(Member member)
+    {
+        System.out.println("MemberDao.update: " + member);
+        return member;
+    }
 }
