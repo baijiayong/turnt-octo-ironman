@@ -70,6 +70,12 @@ public class MemberServiceTest extends MiniatureSpiceTestCase
         
         assertFalse(memberDao.deleteHasInvoked);
     }
+    public void test_一个不存在的Member不可以被更新()
+    {
+        memberService.update(createMember(4L,"xiaobai"));
+        
+        assertFalse(memberDao.updateHasInvoked);
+    }
     public Member createMemberWithUsername(String username)
     {
         Member member = new Member();
@@ -103,6 +109,8 @@ class MockMemberDao implements MemberDao
     public Member getByIdReturn;
     
     public Member updateParam;
+    public Boolean updateHasInvoked = false;
+    
     public Member expectedDeleteMember;
     public Member save(Member member)
     {
@@ -125,6 +133,7 @@ class MockMemberDao implements MemberDao
     
     public Member update(Member member)
     {
+        updateHasInvoked = true;
         updateParam = member;
         return updateParam;
     }

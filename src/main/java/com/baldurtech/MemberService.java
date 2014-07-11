@@ -29,9 +29,13 @@ public class MemberService
     }
     public Member update(Member member)
     {
-        Member originMember = memberDao.getById(member.getId());
-        originMember.setUsername(member.getUsername());
-        return memberDao.update(originMember);
+        if(memberDao.getById(member.getId()) != null)
+        {
+            Member originMember = memberDao.getById(member.getId());
+            originMember.setUsername(member.getUsername());
+            return memberDao.update(originMember);
+        }
+        return member;
     }
    
 } 
