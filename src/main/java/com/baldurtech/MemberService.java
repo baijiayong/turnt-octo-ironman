@@ -13,7 +13,7 @@ public class MemberService
         {
             return member;
         }
-        if(member.getUsername() != null && member.getUsername().trim().length() > 0)
+        if(assertValidMemberByUsername(member))
         {
             Member memberWillBeSaved = new Member();
             memberWillBeSaved.setUsername(member.getUsername().trim());
@@ -42,5 +42,8 @@ public class MemberService
     {
         return member.getId() != null;
     }
-    
+    private boolean assertValidMemberByUsername(Member member)
+    {
+        return member.getUsername() != null && member.getUsername().trim().length() > 0;
+    }
 } 
