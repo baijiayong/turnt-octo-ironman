@@ -9,6 +9,9 @@ public class MemberService
     }
     public Member save(Member member)
     {
+        if(member.getId() != null) {
+            return member;
+        }
         if(member.getUsername() != null && member.getUsername().trim().length() > 0)
         {
             Member memberWillBeSaved = new Member();
@@ -19,10 +22,14 @@ public class MemberService
     }
     public void delete(Member member)
     {
-        Member originMember = memberDao.getById(member.getId());
-        if(originMember.getId() > 1L )
-        {
-            memberDao.delete(member);
+        if(memberDao.getById(member.getId()) != null)
+        {   
+            Member originMember = memberDao.getById(member.getId());
+        
+            if(originMember.getId() > 1L )
+            {
+                memberDao.delete(member);
+            }
         }
     }
     public Member update(Member member)

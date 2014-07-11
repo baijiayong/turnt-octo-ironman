@@ -26,6 +26,12 @@ public class MemberServiceTest extends MiniatureSpiceTestCase
         
         assertTrue(memberDao.saveHasInvoked);
     }
+    public void test_一个已经设置id的Member不能被保存()
+    {
+        memberService.save(createMember(3L, "Tom"));
+        
+        assertFalse(memberDao.saveHasInvoked);
+    }
     public void test_username_should_be_trimed()
     {
         memberService.save(createMemberWithUsername("  tom  "));
@@ -34,8 +40,7 @@ public class MemberServiceTest extends MiniatureSpiceTestCase
     }
     public void test_id_equals_1_should_not_be_deleted()
     {
-        memberDao.getByIdParamExpected = 1L;
-        memberDao.getByIdReturn = createMemberWithId(1L);
+        memberDao.假如数据库中存在Member(1L, "root");
         
         memberService.delete(createMemberWithId(1L));
      
@@ -43,8 +48,7 @@ public class MemberServiceTest extends MiniatureSpiceTestCase
     }
     public void test_删除一个有效的且id不为1的member()
     {
-        memberDao.getByIdParamExpected = 2L;
-        memberDao.getByIdReturn = createMember(2L,"benben");
+        memberDao.假如数据库中存在Member(2L, "benben");
         
         memberService.delete(createMemberWithId(2L));
         
@@ -53,13 +57,18 @@ public class MemberServiceTest extends MiniatureSpiceTestCase
     }
     public void test_给一个已存在的member修改为另一个有效的username()
     {
-        memberDao.getByIdParamExpected = 5L;
-        memberDao.getByIdReturn = createMember(5L, "Tom");
+        memberDao.假如数据库中存在Member(5L, "Tom");
         
         memberService.update(createMember(5L,"Jack"));
         
         assertEquals(5, memberDao.getByIdParam.intValue());
         assertEquals("Jack", memberDao.updateParam.getUsername());
+    }
+    public void test_一个不存在的member不可以被删除()
+    {
+        memberService.delete(createMember(3L,"yufei"));
+        
+        assertFalse(memberDao.deleteHasInvoked);
     }
     public Member createMemberWithUsername(String username)
     {
@@ -118,5 +127,16 @@ class MockMemberDao implements MemberDao
     {
         updateParam = member;
         return updateParam;
+    }
+    
+    public void 假如数据库中存在Member(Long id, String username)
+    {
+        getByIdParamExpected = id;
+        
+        Member member = new Member();
+        member.setId(id);
+        member.setUsername(username);
+        
+        getByIdReturn = member;
     }
 }
