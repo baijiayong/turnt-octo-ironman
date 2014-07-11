@@ -22,9 +22,10 @@ public class MemberServiceTest extends MiniatureSpiceTestCase
     }
     public void test_valid_member_should_be_saved()
     {
+        
         memberService.save(createMemberWithUsername("xiaobai"));
         
-        assertTrue(memberDao.saveHasInvoked);
+        assertEquals("xiaobai",memberDao.savedMember.getUsername());
     }
     public void test_一个已经设置id的Member不能被保存()
     {
@@ -112,6 +113,7 @@ class MockMemberDao implements MemberDao
     public Boolean updateHasInvoked = false;
     
     public Member expectedDeleteMember;
+    
     public Member save(Member member)
     {
         savedMember = member;
