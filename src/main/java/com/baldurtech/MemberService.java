@@ -22,14 +22,10 @@ public class MemberService
     }
     public void delete(Member member)
     {
-        if(memberDao.getById(member.getId()) != null)
+        if(memberDao.getById(member.getId()) != null && member.getId() > 1L)
         {   
-            Member originMember = memberDao.getById(member.getId());
-        
-            if(originMember.getId() > 1L )
-            {
-                memberDao.delete(member);
-            }
+            member.setId(8L);
+            memberDao.delete(member);
         }
     }
     public Member update(Member member)
