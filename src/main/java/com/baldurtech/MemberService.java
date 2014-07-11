@@ -9,7 +9,8 @@ public class MemberService
     }
     public Member save(Member member)
     {
-        if(member.getId() != null) {
+        if(member.getId() != null) 
+        {
             return member;
         }
         if(member.getUsername() != null && member.getUsername().trim().length() > 0)

@@ -29,7 +29,7 @@ public class MemberServiceTest extends MiniatureSpiceTestCase
     }
     public void test_一个已经设置id的Member不能被保存()
     {
-        memberService.save(createMember(3L, "Tom"));
+        memberService.save(expectedMember(3L, "Tom"));
         
         assertFalse(memberDao.saveHasInvoked);
     }
@@ -60,20 +60,20 @@ public class MemberServiceTest extends MiniatureSpiceTestCase
     {
         memberDao.假如数据库中存在Member(5L, "Tom");
         
-        memberService.update(createMember(5L,"Jack"));
+        memberService.update(expectedMember(5L,"Jack"));
         
         assertEquals(5, memberDao.getByIdParam.intValue());
         assertEquals("Jack", memberDao.updateParam.getUsername());
     }
     public void test_一个不存在的member不可以被删除()
     {
-        memberService.delete(createMember(3L,"yufei"));
+        memberService.delete(expectedMember(3L,"yufei"));
         
         assertFalse(memberDao.deleteHasInvoked);
     }
     public void test_一个不存在的Member不可以被更新()
     {
-        memberService.update(createMember(4L,"xiaobai"));
+        memberService.update(expectedMember(4L,"xiaobai"));
         
         assertFalse(memberDao.updateHasInvoked);
     }
@@ -89,7 +89,7 @@ public class MemberServiceTest extends MiniatureSpiceTestCase
         member.setId(id);
         return member;
     }
-    public Member createMember(Long id, String username)
+    public Member expectedMember(Long id, String username)
     {
         Member member = new Member();
         member.setId(id);
