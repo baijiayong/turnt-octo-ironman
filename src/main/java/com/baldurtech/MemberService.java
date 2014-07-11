@@ -24,7 +24,6 @@ public class MemberService
     {
         if(memberDao.getById(member.getId()) != null && member.getId() > 1L)
         {   
-            member.setId(8L);
             memberDao.delete(member);
         }
     }

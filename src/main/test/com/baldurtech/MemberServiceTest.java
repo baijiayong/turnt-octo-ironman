@@ -53,7 +53,7 @@ public class MemberServiceTest extends MiniatureSpiceTestCase
         memberService.delete(createMemberWithId(2L));
         
         assertEquals(2,memberDao.getByIdParam.intValue());
-        assertNull(memberDao.deleteMember);
+        assertEquals(2,memberDao.expectedDeleteMember.getId().intValue());
     }
     public void test_给一个已存在的member修改为另一个有效的username()
     {
@@ -103,7 +103,7 @@ class MockMemberDao implements MemberDao
     public Member getByIdReturn;
     
     public Member updateParam;
-    public Member deleteMember;
+    public Member expectedDeleteMember;
     public Member save(Member member)
     {
         savedMember = member;
@@ -113,7 +113,7 @@ class MockMemberDao implements MemberDao
     public void delete(Member member)
     {
         deleteHasInvoked = true;
-        deleteMember = null;      
+        expectedDeleteMember = member;     
     }
     public Member getById(Long id)
     {
