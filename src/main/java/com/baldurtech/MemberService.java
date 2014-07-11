@@ -9,7 +9,7 @@ public class MemberService
     }
     public Member save(Member member)
     {
-        if(member.getId() != null) 
+        if(assertValidMemberById(member)) 
         {
             return member;
         }
@@ -38,5 +38,9 @@ public class MemberService
         }
         return member;
     }
-   
+    private boolean assertValidMemberById(Member member)
+    {
+        return member.getId() != null;
+    }
+    
 } 
