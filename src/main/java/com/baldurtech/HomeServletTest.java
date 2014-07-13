@@ -23,7 +23,24 @@ public class HomeServletTest extends MiniatureSpiceTestCase
 
         assertEquals("list",String.valueOf(dataModel.get("redirectTo")));
     }
+    public void test_membetr保存失败后要返回编辑页面()
+    {
+        Member expectedMember = new Member();
+        expectedMember.setUsername("Jack");
+    
+        MockMemberService memberService = new MockMemberService();
+        memberService.saveShouldReturnMember = expectedMember;
+        MockRequestForm form = new MockRequestForm();
+        form.set("action","Save");
+    
+        HomeServlet homeServlet = new HomeServlet(memberService);
+    
+        Map dataModel = homeServlet.doAction(form);
+         
+        assertEquals("edit",String.valueOf(dataModel.get("forward")));
+    }
 }
+   
 class MockMemberService extends MemberService
 {
     public Member saveShouldReturnMember;
