@@ -27,8 +27,10 @@ public class MemberServiceTest extends MiniatureSpiceTestCase
         
         assertEquals("xiaobai",memberDao.savedMember.getUsername());
     }
-    public void test_一个已经设置id的Member不能被保存()
+    public void test_一个已经保存到数据库的Member不能被再次保存()
     {
+        memberDao.假如数据库中存在Member(3L, "Tom");
+    
         memberService.save(expectedMember(3L, "Tom"));
         
         assertFalse(memberDao.saveHasInvoked);
@@ -39,7 +41,7 @@ public class MemberServiceTest extends MiniatureSpiceTestCase
         
         assertEquals("tom",memberDao.savedMember.getUsername());
     }
-    public void test_id_equals_1_should_not_be_deleted()
+    public void test_id为1的member不应该被删除()
     {
         memberDao.假如数据库中存在Member(1L, "root");
         

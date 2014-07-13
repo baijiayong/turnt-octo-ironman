@@ -9,11 +9,11 @@ public class MemberService
     }
     public Member save(Member member)
     {
-        if(assertValidMemberById(member)) 
+        if(isPersistent(member)) 
         {
             return member;
         }
-        if(assertValidMemberByUsername(member))
+        if(validate(member))
         {
             Member memberWillBeSaved = new Member();
             memberWillBeSaved.setUsername(member.getUsername().trim());
@@ -23,7 +23,7 @@ public class MemberService
     }
     public void delete(Member member)
     {
-        if(memberDao.getById(member.getId()) != null && member.getId() > 1L)
+        if(isPersistent(member) && member.getId() > 1L)
         {   
             memberDao.delete(member);
         }
@@ -38,11 +38,11 @@ public class MemberService
         }
         return member;
     }
-    private boolean assertValidMemberById(Member member)
+    private boolean isPersistent(Member member)
     {
-        return member.getId() != null;
+        return member.getId() != null && memberDao.getById(member.getId()) != null;
     }
-    private boolean assertValidMemberByUsername(Member member)
+    private boolean validate(Member member)
     {
         return member.getUsername() != null && member.getUsername().trim().length() > 0;
     }
