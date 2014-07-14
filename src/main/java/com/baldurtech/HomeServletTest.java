@@ -21,7 +21,7 @@ public class HomeServletTest extends MiniatureSpiceTestCase
         
         Map dataModel = homeServlet.doAction(form);
 
-        assertEquals("list",String.valueOf(dataModel.get("redirectTo")));
+        assertEquals("list",dataModel.get("redirectTo"));
     }
     public void test_membetr保存失败后要返回编辑页面()
     {
@@ -37,7 +37,7 @@ public class HomeServletTest extends MiniatureSpiceTestCase
     
         Map dataModel = homeServlet.doAction(form);
          
-        assertEquals("edit",String.valueOf(dataModel.get("forward")));
+        assertEquals("edit",dataModel.get("forward"));
     }
 }
    
